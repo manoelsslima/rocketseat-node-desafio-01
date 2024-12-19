@@ -37,9 +37,16 @@ export class Database {
     }
 
     update(table, id, data) {
+        
         const rowIndex = this.#database[table].findIndex(row => row.id === id);
         if (rowIndex > -1) { // -1 index not found
-            this.#database[table][rowIndex] = { id, ...data };
+
+            const task = this.#database[table][rowIndex];
+            task.title = data.title;
+            task.description = data.description;
+            task.updated_at = new Date();
+
+            this.#database[table][rowIndex] = task;
             this.#persist();
         }
     }

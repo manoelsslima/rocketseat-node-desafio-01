@@ -26,7 +26,8 @@ export const routes = [
             id: randomUUID(),
             title,
             description,
-            created_at: new Date()
+            created_at: new Date(),
+            updated_at: null
         };
 
         database.insert('tasks', task);
@@ -41,7 +42,7 @@ export const routes = [
             const { id } = req.params;
             const { title, description } = req.body;
 
-            database.update('tasks', id, {title, description});
+            database.update('tasks', id, { title, description });
             return res.writeHead(204).end();
         }
 
@@ -62,6 +63,5 @@ export const routes = [
         handler: (req, res) => {
 
         }
-
     }
 ]
