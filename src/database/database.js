@@ -59,4 +59,12 @@ export class Database {
         }
     }
 
+    complete(table, id) {
+        const rowIndex = this.#database[table].findIndex(row => row.id === id);
+        if (rowIndex > -1) {
+            const task = this.#database[table][rowIndex];
+            task.completed_at = new Date();
+            this.#persist();
+        }
+    }
 }

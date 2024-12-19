@@ -27,7 +27,8 @@ export const routes = [
             title,
             description,
             created_at: new Date(),
-            updated_at: null
+            completed_at: null,
+            updated_at: null,
         };
 
         database.insert('tasks', task);
@@ -61,7 +62,9 @@ export const routes = [
         method: 'PATCH',
         path: buildRoutePath('/tasks/:id/complete'),
         handler: (req, res) => {
-
+            const { id } = req.params;
+            database.complete('tasks', id);
+            return res.writeHead(204).end();
         }
     }
 ]
