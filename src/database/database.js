@@ -51,8 +51,12 @@ export class Database {
         if (rowIndex > -1) { // -1 index not found
 
             const task = this.#database[table][rowIndex];
-            task.title = data.title;
-            task.description = data.description;
+            if (data.title != null) {
+                task.title = data.title;
+            }
+            if (data.description != null) {
+                task.description = data.description;
+            }
             task.updated_at = new Date();
 
             this.#database[table][rowIndex] = task;
@@ -72,7 +76,11 @@ export class Database {
         const rowIndex = this.#database[table].findIndex(row => row.id === id);
         if (rowIndex > -1) {
             const task = this.#database[table][rowIndex];
-            task.completed_at = new Date();
+            if (task.completed_at == null) {
+                task.completed_at = new Date();
+            } else {
+                task.completed_at = null;
+            }
             this.#persist();
         }
     }
